@@ -2,20 +2,16 @@
 FROM python:3.11-alpine3.17
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-WORKDIR /code
-COPY requirements.txt /code/
+WORKDIR /app/
+COPY requirements.txt /app/
 
-# Installing client libraries and any other package you need
-RUN apk update && apk add libpq
-
+# install psycopg2 dependencies
 RUN apk update \
-  # dependencies for building Python packages
-  && apk install build-essential \
-  # psycopg2 dependencies
-  && apk install libpq-dev
+    && apk add postgresql-dev gcc python3-dev musl-dev
+
+# update pip
+RUN pip install --upgrade pip
 
 RUN pip install -r requirements.txt
 
-# Delete build dependencies
-RUN apk del .build-deps
-COPY . /code/
+COPY . /app/
