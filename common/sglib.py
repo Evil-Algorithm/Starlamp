@@ -6,12 +6,17 @@ import logging.config
 from django.conf import settings
 
 
-def folder_path(fp: str) -> str:
+async def folder_path(fp: str, included=True) -> str:
     """Return the path to a folder in the media directory."""
     try:
-        logging.info(f"folder_path: {fp}")
-    except NameError as e:
-        logging.critical(f"{e} is not defined")
+        gal_fp = os.path.join(m_path, fp)
+        base_fp = [
+            x for x in os.listdir(m_path) if os.path.isdir(os.path.join(gal_fp, x))
+        ]
+        logging.info(f"sglib: folder_path: {base_fp}")
+
+    except Exception as e:
+        logging.fatal(f"sglib: folder_path: {e}")
 
 
 if __name__ == "__main__":
