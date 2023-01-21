@@ -6,7 +6,7 @@ import logging.config
 from django.conf import settings
 
 
-async def folder_path(fp: str, included=True) -> str:
+async def folder_path(m_path: any, fp: str, included=True) -> str:
     """Return the path to a folder in the media directory."""
     try:
         gal_fp = os.path.join(m_path, fp)
@@ -24,10 +24,10 @@ if __name__ == "__main__":
     m_path = settings.MEDIA_ROOT
 
     logging.basicConfig(
-        filename="logs/sglib.log",
+        # filename="logs/sglib.log",
         level=logging.DEBUG,
         format="%(asctime)s %(levelname)s %(message)s",
     )
 
     logging.info("sglib.py: started")
-    folder_path("test")
+    folder_path(m_path, "test")

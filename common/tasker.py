@@ -12,10 +12,10 @@ import asyncio
 import sglib
 
 
-async def tasker():
+async def tasker(m_path: any):
     "Run a coroutine"
     try:
-        path = await sglib.folder_path("test")
+        path = await sglib.folder_path("test", m_path)
         logging.info(f"tasker: {path}")
 
     except Exception as err:
@@ -28,10 +28,10 @@ if __name__ == "__main__":
     m_path = settings.MEDIA_ROOT
 
     logging.basicConfig(
-        filename="logs/tasker.log",
+        # filename="logs/tasker.log",
         level=logging.DEBUG,
         format="%(asctime)s %(levelname)s %(message)s",
     )
 
     logging.info("tasker: started")
-    asyncio.run(tasker())
+    asyncio.run(tasker(m_path))
