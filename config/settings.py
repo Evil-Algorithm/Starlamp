@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "common",
 ]
 
 MIDDLEWARE = [
@@ -115,49 +116,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-
-# Logging
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "handlers": {
-        "file": {
-            "class": "logging.FileHandler",
-            "filename": "debug.log",
-            "level": "DEBUG",
-            "formatter": "verbose",
-        },
-        "console": {
-            "class": "logging.StreamHandler",
-            "level": "DEBUG",
-            "formatter": "simple",
-        },
-    },
-    "formatters": {
-        "verbose": {
-            "format": "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s",
-            "style": "{",
-        },
-        "simple": {
-            "format": "%(levelname)s %(asctime)s %(message)s",
-            "style": "{",
-        },
-    },
-    "loggers": {
-        "common": {
-            "level": "DEBUG",
-            "handlers": ["file", "console"],
-        },
-        "common.sglib": {
-            "level": "DEBUG",
-            "handlers": ["console"],
-        },
-        "galleries": {
-            "level": "DEBUG",
-            "handlers": ["console"],
-        },
-    },
-}
 
 
 # Static files (CSS, JavaScript, Images)
