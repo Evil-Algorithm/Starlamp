@@ -12,10 +12,10 @@ import asyncio
 import sglib
 
 
-async def tasker(m_path: any):
+async def tasker(m_path: any) -> None:
     "Run a coroutine"
     try:
-        path = await sglib.folder_path("test", m_path)
+        path = await sglib.folder_path("../media/", m_path)
         logging.info(f"tasker: {path}")
 
     except Exception as err:
