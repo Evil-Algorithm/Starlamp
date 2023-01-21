@@ -16,7 +16,8 @@ async def tasker(m_path: any) -> None:
     "Run a coroutine"
     try:
         folder = await sglib.folder_path(m_path, "../media/")
-
+        list_files = await sglib.list_files(m_path, "../media/")
+        print(list_files)
         logging.info(f"tasker: {folder}")
 
     except Exception as err:
