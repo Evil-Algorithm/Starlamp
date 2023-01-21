@@ -120,34 +120,43 @@ USE_TZ = True
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "formatters": {
-        "verbose": {
-            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
-            "style": "{",
-        },
-        "simple": {"format": "{levelname} {message}", "style": "{"},
-    },
-    "filters": {"require_debug_true": {"()": "django.utils.log.RequireDebugTrue"}},
     "handlers": {
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": "debug.log",
+            "level": "DEBUG",
+            "formatter": "verbose",
+        },
         "console": {
-            "filters": ["require_debug_true"],
             "class": "logging.StreamHandler",
+            "level": "DEBUG",
             "formatter": "simple",
         },
-        "file_error": {
-            "level": "ERROR",
-            "class": "logging.FileHandler",
-            "filename": "./logs/error_logs.log",
-            "formatter": "verbose",
+    },
+    "formatters": {
+        "verbose": {
+            "format": "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s",
+            "style": "{",
         },
-        "file_info": {
-            "level": "INFO",
-            "class": "logging.FileHandler",
-            "filename": "./logs/info_logs.log",
-            "formatter": "verbose",
+        "simple": {
+            "format": "%(levelname)s %(asctime)s %(message)s",
+            "style": "{",
         },
     },
-    "loggers": {"django": {"handlers": ["file_error", "file_info"], "propagate": True}},
+    "loggers": {
+        "common": {
+            "level": "DEBUG",
+            "handlers": ["file", "console"],
+        },
+        "common.sglib": {
+            "level": "DEBUG",
+            "handlers": ["console"],
+        },
+        "galleries": {
+            "level": "DEBUG",
+            "handlers": ["console"],
+        },
+    },
 }
 
 
