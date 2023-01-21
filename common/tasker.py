@@ -15,12 +15,12 @@ import sglib
 async def tasker(m_path: any) -> None:
     "Run a coroutine"
     try:
-        path = await sglib.folder_path("../media/", m_path)
+        path = await sglib.folder_path(m_path, "../media/")
         logging.info(f"tasker: {path}")
 
     except Exception as err:
         # TODO proper exception handling
-        logging.fatal("tasker: your tasks are fucked")
+        logging.fatal(f"tasker: your tasks are fucked: {err}")
 
 
 if __name__ == "__main__":
@@ -34,4 +34,4 @@ if __name__ == "__main__":
     )
 
     logging.info("tasker: started")
-    asyncio.run(tasker(m_path))
+    asyncio.run(tasker(m_path=m_path))

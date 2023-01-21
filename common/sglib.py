@@ -11,7 +11,7 @@ async def folder_path(m_path: any, fp: str, included=True) -> str:
     try:
         gal_fp = os.path.join(m_path, fp)
         base_fp = [
-            x for x in os.listdir(m_path) if os.path.isdir(os.path.join(gal_fp, x))
+            x for x in os.listdir(gal_fp) if os.path.isdir(os.path.join(gal_fp, x))
         ]
         logging.info(f"sglib: folder_path: {base_fp}")
 
@@ -30,4 +30,3 @@ if __name__ == "__main__":
     )
 
     logging.info("sglib.py: started")
-    folder_path(m_path, "test")
