@@ -63,14 +63,12 @@ async def list_files(m_path: any, fp: str, included=True) -> str:
         ]
     except FileNotFoundError as err:
         logging.fatal(f"sglib: list_files: {err}")
-
     try:
         # strip out the last two folders
         if included:
             return ft_fp
         else:
             return files
-
     except FileNotFoundError as err:
         logging.fatal(f"sglib: list_files: {err}")
 
@@ -81,3 +79,43 @@ async def list_thumbs(m_path: any):
         directories = [subdir.name for subdir in scan_media]
     except FileNotFoundError as err:
         logging.fatal(f"sglib: list_thumbs: {err}")
+    try:
+        # scan the media root folder
+        directories = [subdir.name for subdir in scan_media]
+        logging.info(f"sglib: list_thumbs: directories: {directories}")
+    except FileNotFoundError as err:
+        logging.info(f"{err}")
+    try:
+        # exclude subdirectories from thumbnail search
+        uf_exclude = []
+        
+        # yikes
+        for folders in folder_path:
+            for root, subdirectories, files, in os.walk(folders, topdown=True, followlinks=False):
+                for subdir in subdirectories:
+                    uf_exclude.append(os.path.join(subdirectories))
+                    logging.info(f"sglib: list_thumbs: uf_exclude: {uf_exclude}")
+            exclude = list(itertools.chain.from_iterable(uf_exclude))
+            
+            # get thumbnails from non-excluded directories
+            # TODO list comprehension
+            exts = [".jpg", ".jpeg", ".png", ".gif", ".webp"]
+            for root, subdirs, files, in os.walk(m_path, topdown=True, followlinks=False):
+                for item in exclude:
+                    if item in subdirs:
+                        subdirs.remove(item)
+                for file in sorted(files):
+                    if file.endswith(tuple(exts)):
+                        ufthumb_fp = list(os.path.join(root, file))
+                        logging.info(f"sglib: list_thumbs: thumb_fp: {thumb_fp}")
+                        break
+    except FileNotFoundError as err:
+        logging.fatal(f"{err}")
+            
+        
+             
+    thumb_fp = [os.sep.join(os.path.normpath(f).split(os.sep)[-3:] for f in ufthumb_fp)
+    return thumb_fp
+    
+    except FileNotFoundError as err:
+        logging.fatal("Ahh")
