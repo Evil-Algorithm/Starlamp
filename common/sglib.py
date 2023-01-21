@@ -15,8 +15,8 @@ async def folder_path(fp: str, included=True) -> str:
         ]
         logging.info(f"sglib: folder_path: {base_fp}")
 
-    except Exception as e:
-        logging.fatal(f"sglib: folder_path: {e}")
+    except Exception as err:
+        logging.fatal(f"sglib: folder_path: {err}")
 
 
 if __name__ == "__main__":

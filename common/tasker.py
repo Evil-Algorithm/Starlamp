@@ -4,6 +4,7 @@
     scheduler to handle timed coroutines
     manager to handle all coroutines
     DJANGO_SETTINGS_MODULE as environment variable
+    Exceptions need a proper handler
 """
 from django.conf import settings
 import logging
@@ -16,8 +17,10 @@ async def tasker():
     try:
         path = await sglib.folder_path("test")
         logging.info(f"tasker: {path}")
-    except:
-        logging.fatal("tasker: logging not configured")
+
+    except Exception as err:
+        # TODO proper exception handling
+        logging.fatal("tasker: your tasks are fucked")
 
 
 if __name__ == "__main__":
