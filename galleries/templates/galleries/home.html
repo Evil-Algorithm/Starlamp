@@ -1,0 +1,52 @@
+{% extends 'galleries/base.html' %}
+
+{% load static %}
+{% load photo_tags %}
+{% load chunks %}
+
+{% block content %}
+    <div class="pages">
+    <span class="step-links">
+    {% if thumbnail.has_previous %}
+        <a href="?page1">&laquo; first</a>
+        <a href="?page={{ thumbnail.previous_page_number }}">previous</a>
+    {% endif %}
+        <span class="current">
+            Page {{ thumbnail.number }} of {{ thumbnail.paginator.num_pages }}.
+        </span>
+        {% if thumbnail.has_next %}
+            <a href="?page={{ thumbnail.next_page_number }}">next</a>
+            <a href="?page={{ thumbnail.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+    </div>
+
+    <main>
+        {% for chunk in thumbnail %}
+            {% with chunk|split:'/' as strs %}
+                <div class="card card-{{ forloop.counter }}">
+                    <img src="{{ MEDIA_URL }}/{{ chunk }}" alt="{{ chunk }}">
+                    <a href="/directory/{{ strs|get_by_index:1 }}"></a>
+                    <p class="{% cycle 'overlay-do' 'overlay-db' %}">{{ strs|get_by_index:1 }}</p>
+                </div>
+            {% endwith %}
+        {% endfor %}
+    </main>
+
+    <div class="pages">
+    <span class="step-links">
+    {% if thumbnail.has_previous %}
+        <a href="?page1">&laquo; first</a>
+        <a href="?page={{ thumbnail.previous_page_number }}">previous</a>
+    {% endif %}
+        <span class="current">
+            Page {{ thumbnail.number }} of {{ thumbnail.paginator.num_pages }}.
+        </span>
+        {% if thumbnail.has_next %}
+            <a href="?page={{ thumbnail.next_page_number }}">next</a>
+            <a href="?page={{ thumbnail.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+    </div>
+
+{% endblock %}

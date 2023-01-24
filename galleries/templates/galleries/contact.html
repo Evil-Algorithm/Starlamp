@@ -1,0 +1,16 @@
+{% extends 'galleries/base.html' %}
+
+{% block content %}
+    {% for item in contact_obj %}
+<div class="contact">
+    <div class="title">
+        <h1>{{ item.title }}</h1>
+    </div>
+    <div class="box">
+        <div class="content">
+                <p>{{ item.body }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -74,6 +74,7 @@ async def list_files(m_path: any, fp: str, included=True) -> str:
 
 
 async def list_thumbs(m_path: any):
+    """"""
     try:
         scan_media = os.scandir(m_path)
         directories = [subdir.name for subdir in scan_media]
@@ -97,8 +98,7 @@ async def list_thumbs(m_path: any):
         ]
         logging.info(f"sglib: list_thumbs: uf_exclude: {uf_exclude}")
         exclude = list(itertools.chain.from_iterable(uf_exclude))
-        # get thumbnails from non-excluded directories
-        # TODO list comprehension
+
         exts = [".jpg", ".jpeg", ".png", ".gif", ".webp"]
         ufthumb_fp = [
             os.path.join(root, file)
